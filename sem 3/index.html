@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5 - BarChart</title>
+</head>
+<body>
+    
+    <canvas id="canvas-chart" style= "width:600px; height:150px" >
+        Your browser does not support the canvas element.
+    </canvas>
+    <a id="chart-download" href="#">Download</a>
+    <button id="chart-download-button">Download</button>
+
+    <script type="module">
+        import {BarChart} from "./canvas-bar-chart-library.js";
+
+        const canvasChart = document.querySelector('#canvas-chart');
+        canvasChart.width=600;
+        const chart = new BarChart(canvasChart);
+        chart.draw([10, 20, 30, 40]);
+
+        const chartDownload = document.getElementById('chart-download');
+        chartDownload.addEventListener('click', () => {
+            const dataURL = canvasChart.toDataURL('image/jpeg',1); // sau 'image/png',al doilea param pentr calitate
+            chartDownload.href = dataURL;      // setează linkul
+            chartDownload.download = 'barchart.jpg'; // setează numele fișierului
+        });
+        document.getElementById('chart-download-button').addEventListener('click', () => {
+            const dataURL = canvasChart.toDataURL(1); // sau 'image/png'
+
+            //create a htmllinkelement
+            const link = document.createElement('a');
+            link.href = dataURL;
+            link.download = 'barchart.png';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    </script>
+</body>
+</html>
