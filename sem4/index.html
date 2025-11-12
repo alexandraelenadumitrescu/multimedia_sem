@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">    
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML5 - Canvas Drawing</title>
+</head>
+
+<body>
+  <script type="module">
+    import { Barchart } from "./canvas-drawing-library.js";
+
+    document.addEventListener('dragover', (event) => {
+      event.preventDefault();
+    });
+
+    document.addEventListener('drop', (event) => {
+      event.preventDefault();
+      const files = event.dataTransfer.files;
+      if (files.length > 0) {
+        const file = files[0];
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const content = e.target.result;
+          const data = content.split(',').map(Number);
+          const canvasBarchart = new Barchart();
+          canvasBarchart.draw(data);
+        };
+        reader.readAsText(file);
+      }
+    });
+
+    // // Create and configure canvas
+    // const canvas = document.createElement('canvas');
+    // canvas.width = 600;
+    // canvas.height = 400;
+    // document.body.appendChild(canvas);
+
+    // const context = canvas.getContext('2d');
+
+    // // Example drawing function
+    // function drawCanvasShapes(ctx) {
+    //   ctx.fillStyle = "lightblue";
+    //   ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    //   ctx.fillStyle = "red";
+    //   ctx.fillRect(50, 50, 100, 100);
+
+    //   ctx.strokeStyle = "black";
+    //   ctx.strokeRect(200, 50, 100, 100);
+
+    //   ctx.beginPath();
+    //   ctx.arc(400, 200, 50, 0, Math.PI * 2);
+    //   ctx.fillStyle = "green";
+    //   ctx.fill();
+    //   ctx.stroke();
+    // }
+
+    // // Call your drawing
+    // drawCanvasShapes(context);
+  </script>
+</body>
+</html>
