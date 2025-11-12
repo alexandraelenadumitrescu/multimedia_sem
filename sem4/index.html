@@ -34,11 +34,11 @@
           const img = document.createElement('img');
 
           img.addEventListener('load', () => {
-            // 🔧 Redimensionează canvas-ul la dimensiunile imaginii
-            image.width = img.width;
-            image.height = img.height;
+            
+            image.width = img.naturalWidth;
+            image.height = img.naturalHeight;
 
-            // Afișează imaginea redimensionată pe canvas
+            
             imageCtx.drawImage(img, 0, 0, img.width, img.height);
           });
 
