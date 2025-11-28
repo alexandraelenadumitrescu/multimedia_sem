@@ -14,7 +14,7 @@
         <button type="button" data-effect="grayscale">Grayscale</button>
         <button type="button" data-effect="sepia">Sepia</button>
         <button type="button" data-effect="threshold">Threshold</button>
-        <button type="button" >Save</button>
+        <button type="button" id="btnSave">Save</button>
         
     </div>
     <script type="module">
@@ -50,6 +50,9 @@
                 const effect=button.dataset.effect;//permite accesarea mai multor atribute data-*
                 imageEditor.changeEffect(effect);
             });
+        });
+        document.getElementById('btnSave').addEventListener('click',()=>{
+            imageEditor.saveImage();
         });
     </script>
 </body>

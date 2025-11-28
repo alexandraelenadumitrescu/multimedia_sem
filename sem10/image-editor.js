@@ -43,6 +43,12 @@ export class ImageEditor{
             this.#drawImage();
         }
     }
+    saveImage(){
+        const link=document.createElement('a');
+        link.download='edited-image.png';
+        link.href=this.#visibleCanvas.toDataURL('image/jpeg',1.0);
+        link.click();
+    }
 
     #drawImage(){
         //this.#visibleCanvasCtx.drawImage(this.#offscreenCanvas,0,0);
@@ -61,7 +67,7 @@ export class ImageEditor{
                 this.#threshold();
                 break;
     }
-}
+    }
 #normal(){
     this.#visibleCanvasCtx.drawImage(this.#offscreenCanvas,0,0);
 }
@@ -89,7 +95,7 @@ export class ImageEditor{
         const g=data[i+1];
         const b=data[i+2];
         data[i]=Math.min(0.393*r+0.769*g+0.189*b,255); //red
-        data[i+1]=Math.min(0.349*r+0.686*g+0.168*b,255);
+        data[i+1]=Math.min(0.349*r+0.686*g+0.168*b,255);//putem pune si un Math.round
         data[i+2]=Math.min(0.272*r+0.534*g+0.131*b,255);
     }
     this.#visibleCanvasCtx.putImageData(imageData,0,0);
@@ -117,4 +123,5 @@ export class ImageEditor{
 
     this.#visibleCanvasCtx.putImageData(imageData, 0, 0);
 }
-}
+
+    }
