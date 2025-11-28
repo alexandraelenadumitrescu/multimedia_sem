@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML 5 - Audio</title>
+</head>
+<body>
+    <audio id="audio"  controls>
+        Your browser does not support the audio element.
+    </audio>
+    <button type="button" id="btnPlay">
+        Play 
+    </button>
+    <span id="audio-duration" > . </span>
+
+    <script type="module">
+        
+        const audio=document.getElementById('audio');
+        const btnPlay=document.getElementById('btnPlay');
+        const audioDuration=document.getElementById('audio-duration');
+        
+
+        btnPlay.addEventListener('click',()=>{
+            if(!audio.paused){
+                audio.pause();
+                btnPlay.textContent='Pause';
+            }
+            else{
+            audio.play();
+        btnPlay.textContent='Play';}
+
+        });
+        audio.addEventListener('loadedmetadata',()=>{
+            audioDuration.textContent=`Duration: ${audio.duration} seconds`;
+        })
+        //audioDuration.textContent=`Duration: ${audio.duration} seconds`;//incarcarea duratei audio-ului se intampla dupa un timp, deci va afisa initial NaN
+
+        audio.src="media/O Holy Night (Acoustic Version) (Instrumental Version) - Bird Of Figment.mp3"; //reincarca audio-ul
+
+    </script>
+</body>
+</html>
