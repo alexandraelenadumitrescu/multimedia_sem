@@ -45,6 +45,32 @@ export class ImageEditor{
     }
 
     #drawImage(){
-        this.#visibleCanvasCtx.drawImage(this.#offscreenCanvas,0,0);
+        //this.#visibleCanvasCtx.drawImage(this.#offscreenCanvas,0,0);
+        switch(this.#effect){
+            case 'normal':
+                this.#normal();
+                break;
+            case 'grayscale':
+                this.#grayscale();
+                break;
     }
+}
+#normal(){
+    this.#visibleCanvasCtx.drawImage(this.#offscreenCanvas,0,0);
+}
+#grayscale(){
+    const width=this.#offscreenCanvas.width;
+    const height=this.#offscreenCanvas.height;
+    const imageData=this.#offscreenCanvasCtx.getImageData(0,0,width,height);
+    const data=imageData.data; //Uint8ClampedArray
+    for(let i=0;i<data.length;i+=4){
+        const r=data[i];
+        const g=data[i+1];
+        const b=data[i+2];
+        
+        const gray=0.299*r+0.587*g+0.114*b;
+        data[i]=data[i+1]=data[i+2]=gray;
+    }
+    this.#visibleCanvasCtx.putImageData(imageData,0,0);
+}
 }
