@@ -53,6 +53,13 @@ export class ImageEditor{
             case 'grayscale':
                 this.#grayscale();
                 break;
+            case 'sepia':
+                this.#sepia();
+                break;
+                case
+    'threshold':
+                this.#threshold();
+                break;
     }
 }
 #normal(){
@@ -72,5 +79,42 @@ export class ImageEditor{
         data[i]=data[i+1]=data[i+2]=gray;
     }
     this.#visibleCanvasCtx.putImageData(imageData,0,0);
+}#sepia(){
+    const width=this.#offscreenCanvas.width;
+    const height=this.#offscreenCanvas.height;
+    const imageData=this.#offscreenCanvasCtx.getImageData(0,0,width,height);
+    const data=imageData.data;
+    for(let i=0;i<data.length;i+=4){
+        const r=data[i];
+        const g=data[i+1];
+        const b=data[i+2];
+        data[i]=Math.min(0.393*r+0.769*g+0.189*b,255); //red
+        data[i+1]=Math.min(0.349*r+0.686*g+0.168*b,255);
+        data[i+2]=Math.min(0.272*r+0.534*g+0.131*b,255);
+    }
+    this.#visibleCanvasCtx.putImageData(imageData,0,0);
+}
+#threshold(level = 128) {
+    const width = this.#offscreenCanvas.width;
+    const height = this.#offscreenCanvas.height;
+    const imageData = this.#offscreenCanvasCtx.getImageData(0, 0, width, height);
+    const data = imageData.data;
+
+    for (let i = 0; i < data.length; i += 4) {
+        const r = data[i];
+        const g = data[i+1];
+        const b = data[i+2];
+
+       
+        const gray = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+
+        
+        const value = (gray >= level) ? 255 : 0;
+
+        
+        data[i] = data[i+1] = data[i+2] = value;
+    }
+
+    this.#visibleCanvasCtx.putImageData(imageData, 0, 0);
 }
 }
