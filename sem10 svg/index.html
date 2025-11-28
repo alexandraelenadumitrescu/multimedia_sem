@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML5 - Bar Chart SVG</title>
+    <style>
+        .bar {
+            fill: steelblue;
+        }
+        .bar:hover {
+            fill: orange;
+        }
+    </style>
+</head>
+<body>
+
+<div id="chart-div"></div>
+
+<script type="module">
+    import { BarChart } from './bar-chart-svg.js';
+
+    const chartDiv = document.getElementById('chart-div');
+    const barChart = new BarChart(chartDiv);
+    const data=[
+        {
+            label:'January',
+            value:40
+        },
+        {
+            label:'February',
+            value:55
+        },
+        {
+            label:'March',
+            value:30
+        },
+        {
+            label:'April',
+            value:70
+        
+        },
+        {
+            label:'May',
+            value:60
+        }
+    ];
+    barChart.draw(data);
+</script>
+
+</body>
+</html>
