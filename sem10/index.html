@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5 - Image Editor</title>
+</head>
+<body>
+    <canvas id="visibleCanvas">Your browser does not support the canvas element.</canvas>
+
+    <input id="fileBrowser" type="file" accept="image/*">
+    <div>
+        <button type="button" data-effect="normal">Normal</button>
+        <button type="button" data-effect="grayscale">Grayscale</button>
+        <button type="button" data-effect="sepia">Sepia</button>
+        
+    </div>
+    <script type="module">
+        import{ImageEditor} from './image-editor.js'
+        const visibleCanvas=document.getElementById('visibleCanvas');
+        const fileBrowser=document.getElementById('fileBrowser');
+
+        const imageEditor=new ImageEditor(visibleCanvas);
+
+
+        fileBrowser.addEventListener('change',()=>{
+            const files=fileBrowser.files;
+            const file=files[0];
+            //console.log(file);
+            const reader=new FileReader();
+            reader.addEventListener('load',()=>{
+                const dataUrl=reader.result;
+                //console.log(dataUrl);
+
+                const img=document.createElement('img');
+                img.addEventListener('load',()=>{
+                    imageEditor.changeImage(img);
+                })
+                img.src=dataUrl;
+
+
+            });
+            reader.readAsDataURL(file);
+
+        })
+    </script>
+</body>
+</html>
