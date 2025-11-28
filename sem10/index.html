@@ -13,6 +13,7 @@
         <button type="button" data-effect="normal">Normal</button>
         <button type="button" data-effect="grayscale">Grayscale</button>
         <button type="button" data-effect="sepia">Sepia</button>
+        <button type="button" >Save</button>
         
     </div>
     <script type="module">
@@ -43,6 +44,12 @@
             reader.readAsDataURL(file);
 
         })
+        document.querySelectorAll('button[data-effect]').forEach(button=>{
+            button.addEventListener('click',()=>{
+                const effect=button.dataset.effect;//permite accesarea mai multor atribute data-*
+                imageEditor.changeEffect(effect);
+            });
+        });
     </script>
 </body>
 </html>
