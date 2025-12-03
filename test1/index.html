@@ -64,11 +64,24 @@ audio.addEventListener('loadedmetadata',()=>{
         })
 
 
-
-ctx.rotate(45*Math.PI/180);
+ctx.translate(200,200);
+ctx.rotate(Math.PI/4);
 ctx.fillStyle='green';
 
-ctx.fillRect(5,0,70,70);
+ctx.fillRect(100,100,70,70);
+
+const svg=document.querySelector('svg');
+const svgNS="http://www.w3.org/2000/svg";
+const textElem=document.createElementNS(svgNS,'text');
+svg.appendChild(textElem);
+textElem.setAttribute('x',10);  
+textElem.setAttribute('y',30);
+textElem.setAttribute('font-size',20);
+textElem.setAttribute('fill','black');
+audio.addEventListener('timeupdate',()=>{
+    textElem.textContent=audio.currentTime;
+});
+
 
 
 
