@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test1</title>
+    <style>
+        rect:hover {
+            fill: blue;
+        }
+    </style>
+    
+</head>
+<body>
+    <!-- /*//Exemple de cerințe:
+
+
+a) Adăugați în codul HTML al paginii un element de tip <svg>, 
+un element de tip <audio> și un <canvas>. Se va asigura 
+afișarea interfeței pentru controlul fișierului audio disponibilă
+ implicit în browser.
+b) Desenați un dreptunghi de culoare roșie în colțul dreapta
+ jos al elementului svg. Dreptunghiul își va modifica culoarea 
+ atunci când cursorul mouse-ului se găsește deasupra sa.
+c) Afișați pe canvas durata fișierului audio cu un font la alegere.
+
+a) Adăugați în codul HTML al paginii un element de tip <svg>, un
+     element de tip <audio> și un <canvas>. Se va asigura afișarea 
+        interfeței pentru controlul fișierului audio disponibilă implicit în browser.
+b) Afișați în cadrul elementului svg momentul curent de timp din fișierul audio.
+c) Desenați pe canvas un pătrat rotit la 45 de grade.*/ -->
+<svg>
+Your browser does not support the svg element.
+
+    <rect x="200" y="80" width="100" height="100" fill="red"/>
+
+
+</svg>
+<audio controls src="media/O Holy Night (Acoustic Version) (Instrumental Version) - Bird Of Figment.mp3">
+    Your browser does not support the audio element.
+
+    
+</audio>
+<span id="audio-duration" > . </span>
+<canvas id="c">
+Your browser does not support the canvas element.
+<rect width="100" height="100" style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)" transform="rotate(45 50 50)"/>    
+
+
+</canvas>
+
+<script>
+const audio=document.querySelector('audio');
+const audioDuration=document.getElementById('audio-duration');
+
+const canvas=document.querySelector('canvas');
+canvas.width=900;
+canvas.height=900;
+const ctx=canvas.getContext('2d');
+ctx.font='20px Arial';
+
+audio.addEventListener('loadedmetadata',()=>{
+            audioDuration.textContent=`Duration: ${audio.duration} seconds`;
+        })
+
+
+
+ctx.rotate(45*Math.PI/180);
+ctx.fillStyle='green';
+
+ctx.fillRect(5,0,70,70);
+
+
+
+    </script>
+    
+</body>
+</html>
