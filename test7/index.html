@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- a) Adăugați un element <audio>, un <svg> și 
+    un <canvas>. Asigurați-vă că elementul 
+    audio are atributul loop activat. b)
+     În <svg>, desenați o stea (sau un
+    poligon simplu). Când cursorul este
+     deasupra elementului SVG (mouseenter),
+      viteza de redare a sunetului (playbackRate) 
+      trebuie să devină 2.0 (dublă). Când cursorul
+       pleacă (mouseleave), viteza revine la 1.0. 
+       c) Afișați pe <canvas>, folosind fillText, 
+        timpul curent al melodiei. Textul trebuie 
+        să își schimbe culoarea aleatoriu de fiecare
+         dată când melodia ajunge la final și reîncepe (
+            evenimentul ended sau seeked dacă e loop). -->
+
+
+    <audio src="./O Holy Night (Acoustic Version) (Instrumental Version) - Bird Of Figment.mp3" loop="true" controls></audio>
+    <svg>
+        <polygon points="60,0 65,20 85,20 90,40 100,45 200,40 300,80" fill="yellow">
+            
+        </polygon>
+    </svg>
+    <canvas></canvas>
+    <script>
+        const audio=document.querySelector("audio");
+        const svg=document.querySelector("svg");
+        const canvas=document.querySelector("canvas");
+        const star=document.querySelector("polygon");
+        star.addEventListener('mouseenter',()=>{
+            audio.playbackRate=12.0;
+        });
+        star.addEventListener('mouseleave',()=>{
+            audio.playbackRate=1.0;
+        });
+        const ctx=canvas.getContext("2d");
+        audio.addEventListener("seeked",()=>{
+           let x=Math.random();
+           ctx.fillStyle = '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+            ctx.fillText(audio.duration,100,100);
+            
+        });
+    </script>
+</body>
+</html>

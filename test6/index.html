@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Varianta 3: Metadate și Forme Geometrice
+a) Adăugați un element <audio> (cu sursă validă), 
+un <svg> și un <canvas>. b) Imediat ce metadatele 
+audio s-au încărcat (loadedmetadata), afișați în 
+interiorul <svg>-ului durata totală a melodiei (în secunde),
+folosind un element <text>. c) Împărțiți imaginar <canvas>-ul 
+în două jumătăți. Când sunetul este sub 50% din volum,
+desenați un cerc în stânga. Când volumul este peste 50%, 
+desenați un cerc în dreapta. -->
+<audio src="./O Holy Night (Acoustic Version) (Instrumental Version) - Bird Of Figment.mp3" controls></audio>
+<canvas width="300" height="100"></canvas>
+<svg>
+    <text    fill="black" x="100" y="100"> hai</text>
+</svg>
+<script>
+    const audio=document.querySelector('audio');
+    const svg=document.querySelector('svg');
+    const svgNS="http://www.w3.org/2000/svg";
+    const canvas=document.querySelector('canvas');
+    const ctx=canvas.getContext('2d');
+    const text=document.querySelector("text");
+    audio.addEventListener('loadedmetadata',()=>{
+        text.textContent=audio.duration;
+    });
+    ctx.beginPath();
+            ctx.arc(100,30,10,0,100);
+            ctx.fill();
+    audio.addEventListener('volumechange',()=>{
+        
+        if(audio.volume<0.5){
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            ctx.beginPath();
+            ctx.arc(30,30,10,0,100);
+            ctx.fill();
+        }else{
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            ctx.beginPath();
+            ctx.arc(100,30,10,0,100);
+            ctx.fill();
+            
+        }
+
+    });
+</script>
+</body>
+</html>

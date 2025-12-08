@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Varianta 2: Bara de Progres și Interacțiune Inversă
+a) Adăugați un element <audio> 
+    (fără controale implicite), un 
+    <svg> și un <canvas>. b) Folosiți <svg>-ul pentru a
+     crea un buton de "Mute/Unmute". Desenați un dreptunghi 
+     în SVG care, la click, setează proprietatea muted a 
+     elementului audio la true sau false. c) Pe <canvas>, 
+    desenați o bară de progres orizontală care se umple pe măsură
+     ce melodia este redată (folosind evenimentul timeupdate). -->
+     <audio src="./O Holy Night (Acoustic Version) (Instrumental Version) - Bird Of Figment.mp3"></audio>
+     <svg>
+        <rect x="100" y="100" width="100" height="50" fill="blue"></rect>
+     </svg>
+     <canvas></canvas>
+     <script>
+        const audio=document.querySelector('audio');
+        const svg=document.querySelector('svg');
+        const rect=svg.querySelector('rect');
+        const svgNS="http://www.w3.org/2000/svg";
+        let ok=0;
+        audio.play();
+
+        rect.addEventListener('click',()=>{
+            audio.muted=!audio.muted;
+            
+            
+        }
+    );
+        
+        const canvas=document.querySelector('canvas');
+        const ctx=canvas.getContext('2d');
+        ctx.fillRect(0,0,300,50);
+        audio.addEventListener('timeupdate',()=>{
+            const progress=audio.currentTime/audio.duration;
+            ctx.clearRect(0,0,300,50);
+            ctx.fillRect(0,0,300*progress,50);
+        });
+     </script>
+</body>
+</html>
