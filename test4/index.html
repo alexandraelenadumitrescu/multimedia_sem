@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Varianta 1: Control Vizual și Sincronizare
+a) Adăugați în pagină un element <audio> (cu controale), 
+    un element <svg> și un element <canvas>. b) În elementul 
+        <svg>, desenați un cerc roșu. Când utilizatorul dă click 
+            pe cerc, fișierul audio trebuie să pornească (play), 
+            iar culoarea cercului să devină verde. c) Pe <canvas>, 
+                afișați textul "Pauză" cât timp melodia este oprită. 
+                Când melodia rulează, ștergeți textul și desenați un 
+                pătrat care se rotește (sau doar apare) în centrul canvasului. -->
+                <audio controls src="./O Holy Night (Acoustic Version) (Instrumental Version) - Bird Of Figment.mp3"></audio>
+                <svg>
+                    <circle cx="100" cy="100" r="50" fill="red" id="circle"/>
+                </svg>
+                <canvas>
+
+                </canvas>
+                <script>
+const audio=document.querySelector('audio');
+const svg=document.querySelector('svg');
+const canvas=document.querySelector('canvas');
+const ctx=canvas.getContext('2d');
+const circle=document.getElementById('circle');
+circle.addEventListener('click',()=>{
+
+    if(audio.paused){
+        circle.setAttribute('fill','green');
+        audio.play();
+    }else{
+        circle.setAttribute('fill','red');
+        audio.pause()}});
+    ctx.font = "30px Arial";
+    audio.addEventListener('play',()=>{
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // Desenăm un pătrat în centrul canvasului
+        const squareSize = 50;
+        const centerX = canvas.width / 2 - squareSize / 2;
+        const centerY = canvas.height / 2 - squareSize / 2;
+        ctx.fillStyle = "blue";
+        ctx.fillRect(centerX, centerY, squareSize, squareSize);
+    });
+    
+    audio.addEventListener('pause',()=>{
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "black";
+        ctx.fillText("Pauză", 10, 50);
+    });
+
+
+                    </script>
+
+    
+</body>
+</html>
