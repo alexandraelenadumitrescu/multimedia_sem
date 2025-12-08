@@ -42,7 +42,7 @@
         });
         const ctx=canvas.getContext("2d");
         audio.addEventListener("seeked",()=>{
-           let x=Math.random();
+           
            ctx.fillStyle = '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
             ctx.fillText(audio.duration,100,100);
             
