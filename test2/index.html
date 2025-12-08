@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <audio src="./O Holy Night (Acoustic Version) (Instrumental Version) - Bird Of Figment.mp3" controls>
+
+    </audio>
+    <canvas>
+
+    </canvas>
+    <button id="btn">PLAY/PAUSE</button>
+    <script>
+        const audio=document.querySelector('audio');
+        const canvas=document.querySelector('canvas');
+        const ctx=canvas.getContext('2d');
+        audio.addEventListener('ended',()=>{
+
+            ctx.font='30px Arial';
+            ctx.fillText('gata',50,50);
+        });
+        btn.addEventListener('click',()=>{
+           if(audio.paused){
+            audio.play();}
+            else{
+                audio.pause();
+            }
+        });
+
+    </script>
+    
+</body>
+</html>
