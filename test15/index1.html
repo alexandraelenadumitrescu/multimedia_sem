@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas>
+
+    </canvas>
+    <img src="./IMG_4055.PNG">
+    <script>
+        const canvas=document.querySelector("canvas");
+        const ctx=canvas.getContext("2d");
+        
+        const img=document.querySelector("img");
+        img.addEventListener("load",()=>{
+            canvas.width=img.naturalWidth;
+        canvas.height=img.naturalHeight;
+            ctx.drawImage(img,0,0);
+        let data=ctx.getImageData(0,0,img.naturalWidth,img.naturalHeight);
+        data1=data.data;
+        for(let i=0;i<data1.length;i+=4){
+            let desat=data1[i]*0.9+data1[i+1]*0.9+data1[i+2]*0.9;
+            data1[i]=desat;
+            data1[i+1]=desat;
+            data1[i+2]=desat;
+        }
+        ctx.putImageData(data,0,0);
+        });
+        
+
+    </script>
+
+    
+</body>
+</html>
