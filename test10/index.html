@@ -6,14 +6,15 @@
     <title>Document</title>
 </head>
 <body>
-    <input type="file" onchange="document.querySelector('img').src=window.URL.createObjectURL(this.files[0])">
-    <button></button>
     <img>
+    <input type="file" onchange="document.querySelector('img').src=window.URL.createObjectURL(this.files[0])">
+    <button>edit</button>
     <script>
         const btn=document.querySelector("button");
-        btn.addEventListener('click',()=>{
+        btn.addEventListener("click",()=>{
             document.querySelector("img").style.filter="blur(5px)";
         });
     </script>
+    
 </body>
 </html>
