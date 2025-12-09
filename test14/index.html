@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <audio controls src="https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg">
+
+    </audio>
+    <canvas>
+
+    </canvas>
+    <script>
+        const audio=document.querySelector("audio");
+        const canvas=document.querySelector("canvas");
+        const ctx=canvas.getContext("2d");
+        let i=1;
+        audio.addEventListener("timeupdate",()=>{
+            
+            ctx.fillRect(0,0,i,1);
+            i++;
+        });
+        audio.addEventListener("ended",()=>{
+            canvas.style.backgroundColor="blue";
+        });
+
+    </script>
+</body>
+</html>
