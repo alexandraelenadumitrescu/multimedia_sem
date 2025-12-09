@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <svg>
+        <text x="50" y="50" fill="black"></text>
+    </svg>
+    <audio controls src="./O Holy Night (Acoustic Version) (Instrumental Version) - Bird Of Figment.mp3">
+
+    </audio>
+    <canvas>
+        
+    </canvas>
+    <script>
+        const text=document.querySelector("text");
+        const audio=document.querySelector("audio");
+        const canvas=document.querySelector("canvas");
+        const ctx=canvas.getContext("2d");
+        text.textContent=0;
+        let i=0;
+        audio.addEventListener("timeupdate",()=>{
+            text.textContent=audio.currentTime;
+            
+        });
+        audio.addEventListener("ratechange",()=>{
+            ctx.strokeStyle="black";
+            ctx.beginPath();
+            i++;
+            ctx.arc(20,20,i,0,2*Math.PI);
+            ctx.stroke();
+        });
+    </script>
+</body>
+</html>
