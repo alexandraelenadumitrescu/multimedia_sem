@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Am eliminat toate subiectele care implicau elementul <video> și le-am păstrat doar pe cele cu Imagini (Procesare pixeli) și Audio.
+
+Iată lista curată:
+
+Subiectul 1 (Procesare Imagine - Coloane)
+(3p) Adăugați în codul HTML al paginii un element de tip <canvas> și un element de tip <img> în care se va afișa fișierul „photo” din directorul „media”.
+
+(3p) Scrieți codul care va afișa pe canvas imaginea în care au fost înlocuite coloanele pare cu o culoare la alegere.
+
+(3p) Desenați un chenar cu o grosime de 5px pe cele patru laturi ale canvas-ului.
+-->
+<canvas>
+
+</canvas>
+<img src="./IMG_4055.PNG">
+<script>
+    const canvas=document.querySelector("canvas");
+    const img=document.querySelector("img");
+    const ctx=canvas.getContext("2d");
+    
+    img.addEventListener("load",()=>{
+        ctx.drawImage(img,0,0);
+        canvas.width=img.naturalWidth;
+        canvas.height=img.naturalHeight;
+        ctx.drawImage(img,0,0);
+        let data=ctx.getImageData(0,0,img.naturalWidth,img.naturalHeight);
+    let dt=data.data;
+    let ok=0;
+    for(let i=0;i<dt.length;i+=4){
+            if(ok===0){
+            let x=100;
+            dt[i]=x;
+            dt[i+1]=x;
+            dt[i+2]=x;
+            ok++;
+            }else{
+                ok--;
+            }
+        
+    }
+    ctx.putImageData(data,0,0);
+    });
+    
+    
+</script>
+<!--
+Subiectul 2 (Procesare Imagine - Linii)
+(3p) Adăugați în codul HTML al paginii un element de tip <canvas> și un element de tip <img> în care se va afișa fișierul „photo” din directorul „media”.
+
+(3p) Scrieți codul care va afișa pe canvas imaginea în care au fost înlocuite liniile pare cu o culoare la alegere.
+
+(3p) Desenați o elipsă în centrul canvas-ului.
+
+Subiectul 3 (Procesare Imagine - Pixel Manipulation)
+(3p) Adăugați în codul HTML al paginii un element de tip <canvas> și un element de tip <img> în care se va afișa fișierul „photo” din directorul „media”.
+
+(3p) Scrieți o funcție care primește ca parametru o variabilă care stochează un element de tip imagine. Funcția afișează imaginea pe canvas la coordonatele (0,0) inversând componentele roșu și verde pentru fiecare pixel.
+
+(3p) Desenați doar conturul unui dreptunghi cu o culoare la alegere în centrul canvas-ului.
+
+Subiectul 4 (Audio și Text Rotit)
+(3p) Adăugați în codul HTML al paginii un element de tip <canvas> și un element de tip <audio>. Se va asigura afișarea interfeței pentru controlul fișierului audio disponibilă implicit în browser.
+
+(3p) Adăugați un buton care să permită trecerea aplicației în starea de redare (Play), respectiv de pauză (Pause). Asigurați modificarea textului de pe buton în funcție de stare.
+
+(3p) Afișați pe canvas prenumele scris la un unghi de 90 de grade.
+
+Subiectul 5 (Imagine - Histograma)
+(3p) Adăugați în codul HTML al paginii un element de tip <canvas> și un element de tip <img> în care se va afișa fișierul „photo.jpg” din directorul „media”.
+
+(3p) Scrieți codul care afișează pe canvas histograma imaginii, luând în considerare doar componenta roșu (Red).
+
+(3p) Afișați prenumele propriu utilizând culoarea verde.
+am gasit astea pe studocu da s subiecte de examen -->
+</body>
+</html>
