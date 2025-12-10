@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <svg>
+        <rect fill="red" x="100" y="50" width="200" height="100"></rect>
+    </svg>
+    <audio controls src="./O Holy Night (Acoustic Version) (Instrumental Version) - Bird Of Figment.mp3">
+
+    </audio>
+    <canvas>
+
+    </canvas>
+    <script>
+        const rect=document.querySelector("rect");
+        rect.addEventListener("mouseenter",()=>{
+            rect.style.fill="blue";
+        });
+        rect.addEventListener("mouseleave",()=>{
+            rect.style.fill="red";
+        });
+        const canvas=document.querySelector("canvas");
+        const ctx=canvas.getContext("2d");
+        const audio=document.querySelector("audio");
+        audio.addEventListener("loadedmetadata",()=>{
+            ctx.fillText(audio.duration,10,10);
+        });
+        
+        
+    </script>
+</body>
+</html>
