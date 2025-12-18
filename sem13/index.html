@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multimedia - AudioPlayer</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+<body class="container">
+
+    <audio id="audio">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="text-center mt-3">
+        <button type="button" id="play-pause-button" class="btn btn-primary"><i class="bi bi-play-fill"></i></button>
+
+        <div class="btn-group">
+            <div class="btn">
+                <span id="time-current">...</span> / <span id="time-duration">...</span>
+            </div>
+            <button id="skip-forward-button" type="button" class="btn btn-light"><i class="bi bi-fast-forward-fill"></i></button>
+            <button id="next-track-button" type="button" class="btn btn-light">Next Track</button>
+        </div>
+    </div>
+    <ul id="playlist" class="list-group" >
+        <li class="list-group-item">Beethoven - Moonlight Sonata</li>
+        <li class="list-group-item">Mozilla Firefox Test</li>
+        <li class="list-group-item">Pachelbel - Canon in D Major</li>
+        <li class="list-group-item">Ravel - Bolero</li>
+    </ul>
+
+    <script type="module">
+        import {AudioPlayer} from './modules/audio-player.js';
+       
+        const audioElement=document.getElementById('audio');
+        const playPauseButton=document.getElementById('play-pause-button');
+        const timeCurrentElement=document.getElementById('time-current');
+        const timeDurationElement=document.getElementById('time-duration');
+        const skipForwardButton=document.getElementById('skip-forward-button');
+        const nextTrackButton=document.getElementById('next-track-button');
+        const timeCurrentLabel='Current Time: ';
+        const timeDurationLabel='Duration: ';
+        const tracks=[
+            {url:'sem13\media\Beethoven-Moonlight-Sonata.mp3',title:'Beethoven - Moonlight Sonata'},
+            {url:'sem13\media\Mozilla Firefox Test.ogg',title:'Mozilla Firefox Test'},
+            {url:'sem13\media\Pachelbel-Canon-in-D-Major.mp3',title:'Pachelbel - Canon in D Major'},
+            {url:'sem13\media\Ravel-Bolero.mp3',title:'Ravel - Bolero'}
+
+
+        ];
+        const audioPlayer=new AudioPlayer(audioElement,playPauseButton,skipForwardButton,nextTrackButton,timeCurrentElement,timeDurationElement,document.getElementById('playlist'));
+        audioPlayer.loadTracks(tracks);
+
+
+
+    </script>
+</body>
+</html>
