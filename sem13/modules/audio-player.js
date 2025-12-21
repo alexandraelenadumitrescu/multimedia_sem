@@ -26,6 +26,7 @@ export class AudioPlayer {
         this.#timeCurrentLabel = timeCurrentLabel;
         this.#timeDurationLabel = timeDurationLabel;
         this.#playlistElement = playlistElement;
+        this.#bindControlEvents();
     }
 
     /**
@@ -49,6 +50,23 @@ export class AudioPlayer {
             fragment.appendChild(li);
         });
         document.createDocumentFragment();
+    }
+    #bindControlEvents() {
+        this.#playPauseButton.addEventListener('click', () => {
+            if(!this.#audioElement.src) {
+                if(this.#tracks && this.#tracks.length > 0) {
+                    this.#playByUrl(this.#tracks[0].url);
+                }
+            }
+            if (this.#audioElement.paused) {this.#audioElement.play();
+                
+            }
+            else {this.#audioElement.pause();
+                
+            }
+            this.#playPauseButton.children[0].classList.toggle('bi-play-fill');
+            this.#playPauseButton.children[0].classList.toggle('bi-pause-fill');
+        });
     }
     #playByUrl(url) {
         this.#audioElement.src = url;
