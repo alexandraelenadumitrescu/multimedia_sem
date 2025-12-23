@@ -1,16 +1,135 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proiect multimedia</title>
+    <title>Asteroids</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #000;
+            font-family: Arial, sans-serif;
+        }
+
+        #gameContainer {
+            text-align: center;
+        }
+
+        #gameCanvas {
+            border: 2px solid #333;
+            background: #000;
+        }
+
+        #info {
+            color: #fff;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Proiect multimedia</h1>
-    <h2>DUMITRESCU ALEXANDRA ELENA</h2>
-    <h3>5 1089</h3>
-    <link rel="stylesheet" href="5_1089_DUMITRESCU_ALEXANDRA_ELENA.css">
-    <script src="5_1089_DUMITRESCU_ALEXANDRA_ELENA.js"></script>    
-    
+    <div id="gameContainer">
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        <div id="info">Folosește săgețile pentru a mișca racheta</div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Racheta
+        const ship = {
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            size: 15,
+            speed: 3
+        };
+
+        // Tastele apăsate
+        const keys = {
+            ArrowUp: false,
+            ArrowDown: false,
+            ArrowLeft: false,
+            ArrowRight: false
+        };
+
+        // Ascultă apăsarea tastelor
+        window.addEventListener('keydown', (e) => {
+            if (keys.hasOwnProperty(e.key)) {
+                keys[e.key] = true;
+                e.preventDefault();
+            }
+        });
+
+        window.addEventListener('keyup', (e) => {
+            if (keys.hasOwnProperty(e.key)) {
+                keys[e.key] = false;
+                e.preventDefault();
+            }
+        });
+
+        // Desenează racheta (triunghi)
+        function drawShip() {
+            ctx.save();
+            ctx.translate(ship.x, ship.y);
+            
+            ctx.beginPath();
+            ctx.moveTo(0, -ship.size);
+            ctx.lineTo(-ship.size * 0.6, ship.size);
+            ctx.lineTo(ship.size * 0.6, ship.size);
+            ctx.closePath();
+            
+            ctx.strokeStyle = '#fff';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.fillStyle = '#000';
+            ctx.fill();
+            
+            ctx.restore();
+        }
+
+        // Actualizează poziția rachetei
+        function updateShip() {
+            if (keys.ArrowUp) {
+                ship.y -= ship.speed;
+            }
+            if (keys.ArrowDown) {
+                ship.y += ship.speed;
+            }
+            if (keys.ArrowLeft) {
+                ship.x -= ship.speed;
+            }
+            if (keys.ArrowRight) {
+                ship.x += ship.speed;
+            }
+
+            // Păstrează racheta în ecran
+            if (ship.x < 0) ship.x = canvas.width;
+            if (ship.x > canvas.width) ship.x = 0;
+            if (ship.y < 0) ship.y = canvas.height;
+            if (ship.y > canvas.height) ship.y = 0;
+        }
+
+        // Bucla principală a jocului
+        function gameLoop() {
+            // Șterge canvas-ul
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Actualizează și desenează
+            updateShip();
+            drawShip();
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        // Start joc
+        gameLoop();
+    </script>
 </body>
 </html>
