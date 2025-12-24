@@ -35,7 +35,9 @@
 <body>
     <div id="gameContainer">
         <canvas id="gameCanvas" width="800" height="600"></canvas>
-        <div id="info">Folosește săgețile pentru a mișca racheta</div>
+        <div id="info">
+            ← → pentru rotire | ↑ pentru propulsie | Spațiu pentru tragere (în curând)
+        </div>
     </div>
 
     <script>
@@ -46,16 +48,22 @@
         const ship = {
             x: canvas.width / 2,
             y: canvas.height / 2,
+            angle: 0, // unghi în radiani (0 = sus)
+            rotation: 0, // viteza de rotație
+            velocity: { x: 0, y: 0 }, // viteza pe x și y
             size: 15,
-            speed: 3
+            rotationSpeed: 0.1,
+            thrustPower: 0.15,
+            friction: 0.99, // pentru a încetini treptat
+            maxSpeed: 8
         };
 
         // Tastele apăsate
         const keys = {
             ArrowUp: false,
-            ArrowDown: false,
             ArrowLeft: false,
-            ArrowRight: false
+            ArrowRight: false,
+            ' ': false
         };
 
         // Ascultă apăsarea tastelor
@@ -77,7 +85,9 @@
         function drawShip() {
             ctx.save();
             ctx.translate(ship.x, ship.y);
+            ctx.rotate(ship.angle);
             
+            // Triunghi racheta
             ctx.beginPath();
             ctx.moveTo(0, -ship.size);
             ctx.lineTo(-ship.size * 0.6, ship.size);
@@ -90,29 +100,73 @@
             ctx.fillStyle = '#000';
             ctx.fill();
             
+            // Desenează flacăra când se accelerează
+            if (keys.ArrowUp) {
+                ctx.beginPath();
+                ctx.moveTo(-ship.size * 0.3, ship.size);
+                ctx.lineTo(0, ship.size + 10);
+                ctx.lineTo(ship.size * 0.3, ship.size);
+                ctx.strokeStyle = '#ff6600';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+            
             ctx.restore();
         }
 
         // Actualizează poziția rachetei
         function updateShip() {
-            if (keys.ArrowUp) {
-                ship.y -= ship.speed;
-            }
-            if (keys.ArrowDown) {
-                ship.y += ship.speed;
-            }
+            // Rotire
             if (keys.ArrowLeft) {
-                ship.x -= ship.speed;
+                ship.angle -= ship.rotationSpeed;
             }
             if (keys.ArrowRight) {
-                ship.x += ship.speed;
+                ship.angle += ship.rotationSpeed;
             }
 
-            // Păstrează racheta în ecran
+            // Propulsie (accelerare în direcția în care e orientată racheta)
+            if (keys.ArrowUp) {
+                ship.velocity.x += Math.sin(ship.angle) * ship.thrustPower;
+                ship.velocity.y -= Math.cos(ship.angle) * ship.thrustPower;
+            }
+
+            // Aplicăre frecție
+            ship.velocity.x *= ship.friction;
+            ship.velocity.y *= ship.friction;
+
+            // Limitează viteza maximă
+            const speed = Math.sqrt(ship.velocity.x ** 2 + ship.velocity.y ** 2);
+            if (speed > ship.maxSpeed) {
+                ship.velocity.x = (ship.velocity.x / speed) * ship.maxSpeed;
+                ship.velocity.y = (ship.velocity.y / speed) * ship.maxSpeed;
+            }
+
+            // Actualizează poziția
+            ship.x += ship.velocity.x;
+            ship.y += ship.velocity.y;
+
+            // Wrap-around (când iese din ecran, apare de cealaltă parte)
             if (ship.x < 0) ship.x = canvas.width;
             if (ship.x > canvas.width) ship.x = 0;
             if (ship.y < 0) ship.y = canvas.height;
             if (ship.y > canvas.height) ship.y = 0;
+        }
+
+        // Desenează câteva stele în fundal pentru a vedea mai bine mișcarea
+        const stars = [];
+        for (let i = 0; i < 100; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 2
+            });
+        }
+
+        function drawStars() {
+            ctx.fillStyle = '#fff';
+            stars.forEach(star => {
+                ctx.fillRect(star.x, star.y, star.size, star.size);
+            });
         }
 
         // Bucla principală a jocului
@@ -120,6 +174,9 @@
             // Șterge canvas-ul
             ctx.fillStyle = '#000';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Desenează stelele
+            drawStars();
 
             // Actualizează și desenează
             updateShip();
