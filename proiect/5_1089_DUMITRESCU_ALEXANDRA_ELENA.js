@@ -1367,66 +1367,10 @@ function createTouchButtons() {
     console.log('Butoane touch create cu succes!');
 }
 
-// ============================================
-// SECTIUNEA 23: MODIFICARE FUNCTII PENTRU TOUCH SUPPORT
-// ============================================
 
-// IMPORTANT: Trebuie sa MODIFICAM functia updateShip existenta
-// Gaseste functia updateShip si INLOCUIESTE-O cu aceasta versiune:
 
-/*
 
-*/
-
-// IMPORTANT: Trebuie sa MODIFICAM functia handleShooting existenta
-// Gaseste functia handleShooting si INLOCUIESTE-O cu aceasta versiune:
-
-/*
-function handleShooting() {
-    // Verificam atat tastatura cat si touch controls
-    if (keys.x || touchControls.shoot) {
-        if (canShoot) {
-            createMissile();
-            canShoot = false;
-        }
-    } else {
-        canShoot = true;
-    }
-}
-*/
-
-// ============================================
-// SECTIUNEA 24: MODIFICARE FUNCTIA initGame
-// ============================================
-
-// IMPORTANT: Trebuie sa MODIFICAM functia initGame existenta
-// Gaseste functia initGame si INLOCUIESTE-O cu aceasta versiune:
-
-/*
-function initGame() {
-    console.log('Jocul a fost initializat!');
-    
-    ship.x = canvasWidth / 2;
-    ship.y = canvasHeight / 2;
-    
-    updateScoreDisplay();
-    updateLivesDisplay();
-    updateHighScoreDisplay();
-    displayHighScores();
-    
-    // Cream butoanele touch
-    createTouchButtons();
-    
-    ctx.fillStyle = '#00ff00';
-    ctx.font = '20px Arial';
-    ctx.textAlign = 'center';
-    ctx.fillText('Apasa SPACE pentru a incepe', canvasWidth / 2, canvasHeight / 2);
-    
-    console.log('Canvas width:', canvasWidth);
-    console.log('Canvas height:', canvasHeight);
-    console.log('Ship pozitie initiala:', ship.x, ship.y);
-}
-*/// ============================================
+/// ============================================
 // SECTIUNEA 21: LOCALSTORAGE - SALVARE SI INCARCARE SCORURI
 // ============================================
 
