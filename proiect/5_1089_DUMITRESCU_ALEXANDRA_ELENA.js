@@ -583,6 +583,7 @@ function restartGame() {
     missiles = [];
     startGame();
 }
+//de explicat loop
 
 document.getElementById('restart-btn').addEventListener('click', function() {
     restartGame();
